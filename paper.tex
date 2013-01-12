@@ -29,6 +29,7 @@
 \newcommand{\ZZ}{\mathbb{Z}}      % for Integers
 \newcommand{\col}[1]{\left[\begin{matrix} #1 \end{matrix} \right]}
 \newcommand{\comb}[2]{\binom{#1^2 + #2^2}{#1+#2}}
+\newcommand{\vect}[1]{\vec{#1}}
 
 
 \begin{document}
@@ -111,19 +112,52 @@ coordinate change matrix, which is non-singular.
 
 \section{Manifolds in Euclidean Space: The Existence of Non-degenerate
   Functions}
+
 Let $M$ be a smooth manifold of dimension $k$. By Whitney Embedding Theorem, we
 can embed $M$ into $\RR^n, n > k$. Therefore, without loss of generality we may
 assume $M \subset \RR^n$. For each $p \in \RR^n$, define a smooth function $L_p
 : M \to \RR $ by
 \begin{equation}
-  L_p(q) = |q-p|^2.
+  L_p(q) = |q-p|^2 = (q-p) \cdot (q-p) = q\cdot q-2q \cdot p + p \cdot p
 \end{equation}
 
 We want to find a $p \in \RR^n$ such that $L_p$ has no degenerate critical
-points in $M$. Let $q \in M$ and let $(u^1, .., u^k) \mapsto (x^1(u), ..,
-x^n(u))$ be a local coordinate at $q$. Then $q$ is a critical point if
-$\frac{\partial f}{\partial u^i}(q) = 0 \forall i = 1, .., k.$; that is,
+points in $M$. Denote $L_p$ as $f$. Let $q \in M$ and let $(u^1, .., u^k)
+\mapsto (x^1(u), .., x^n(u))$ be a local coordinate centered at $q$. Then $q$ is
+a critical point if $\frac{\partial f}{\partial u^i}(q) = 0$ for all $i = 1, ..,
+k.$; that is,
+\begin{equation}
+  \frac{\partial \vect{x}}{\partial u^i}(q) \cdot (q-p) = 0.
+\end{equation}
+It follows that $q \in M$ is a critical point of $L_p$ if and only if $p$ lies
+in a line perpendicular to $M$ at $q$. Differentiate again, and we get
+\begin{equation}
+  \frac{\partial^2 f}{\partial u^i \partial u^j}(q) = 
+  2\left(
+    \frac{\partial^2 \vect{x}}{\partial u^i \partial u^j}(q) \cdot (q-p) +
+    \frac{\partial \vect{x}}{\partial u^i}(q) \cdot \frac{\partial \vect{x}}{\partial u^j}(q)
+  \right)
+\end{equation}
 
+We get the following conclusions:
+
+
+$L_p$ is non-degenerate if and only if
+
+\begin{itemize}
+\item For each critical point $q$, $p$ lies in a line perpendicular to $M$ at
+  $q$.
+\item the matrix $\left(
+    \frac{\partial^2 \vect{x}}{\partial u^i \partial u^j}(q) \cdot (q-p) +
+    \frac{\partial \vect{x}}{\partial u^i}(q) \cdot \frac{\partial \vect{x}}{\partial u^j}(q)
+  \right)$
+  is non-singular.
+\end{itemize}
+
+Thus the main purpose of this section is to establish the existence of such $p
+\in \RR^n$.
+
+\subsection{Focal Points}
 
 Let $N = \{ (q,v) \in \RR^{2n} | q \in M, v \in (T_qM)^{\perp} \subset \RR^n \}$
 be the normal bundle of $M$ in $\RR^n$. Then $N$ is a manifold of dimension
@@ -132,7 +166,7 @@ $k+(n-k)=n$. We define a map $E$ that maps $N$ into the ambient space $\RR^n$ by
   E(q, v) = q + v.
 \end{equation}
 This is a differentiable map between two manifolds of dimension $n$. The point
-$q+v$ thus line in a normal line that is perpendicular to $M$ at $p$. This leads
+$q+v$ thus lies in a normal line that is perpendicular to $M$ at $p$. This leads
 to the definition of focal points:
 
 \begin{defn}
@@ -142,11 +176,237 @@ to the definition of focal points:
   q)$, $q \in M$.
 \end{defn}
 
-The focal points will play an important role in the construction of a kind
+Next we fix a $\vect{q} \in M$ and a unit normal vector $\vect{v} \in \RR^n$ and
+study the focal points of $(M, q)$ along the line $\vect{l} =
+\vect{q}+t\vect{v}$. Before this, we first introduce the second the second
+fundamental form of a manifold in $\RR^n$:
+
+\begin{defn}
+  Let $\vect{q} \in M$ and let $\vect{v} \in (T_qM)^\perp$. The second
+  fundamental form in the direction of $\vect{v}$ is defined as the matrix
+
+  \begin{equation}
+    \left(
+      \vect{v} \cdot \vect{l}_{ij}
+    \right)
+  \end{equation}
+  where $\vect{l}_{ij} = \frac{\partial^2 \vect{x}}{\partial u^i \partial
+    u^j}(\vect{q})$.
+  The eigenvalues of the matrix is called the principal curvatures $K_1$, ..,
+  $K_k$ of $M$ at $\vect{q}$ in the normal direction $\vect{v}$.
+\end{defn}
+
+Now comes the key lemma in this section:
+
+\begin{lem}
+  The focal points of $(M, q)$ along $\vect{l}$  are precisely the points
+  $\vect{q}+K_i^{-1}\vect{v}$, where $1 \le i \le k$, $K_i \ne 0$. Thus there
+  are at most $k$ focal points of $(M,q)$ along $\vect{l}$, each being counted
+  with its proper multiplicity.
+\end{lem}
+
+\begin{proof}
+  First we are going to find a local coordinate of $N$ centered at $(q, v)$. Let
+  $\vect{w}_1(u^1, .., u^k)$, .., $\vect{w}_{n-k}(u^1, .., u^k)$ be orthonormal
+  vector fields in $N$. Then we have a local coordinate of $N$ at $(q, v)$
+  defined by
+  \begin{equation}
+    (u^1, .., u^k, t^1, .., t^{n-k}) \mapsto (\vect{x}(u),
+    \sum_{\alpha=1}^{n-k}t^{\alpha} \vect{w}_{\alpha}(u^1, .., u^k)) \in N
+  \end{equation}
+  Write $E: N \to \RR$ in the coordinate as $E(u, t) = \vect{e}(u, t) \in \RR^n$
+  and get
+  \begin{equation}
+    \vect{e}(u, t) = \vect{x}(u) + \sum_{\alpha=1}^{n-k}t^{\alpha} \vect{w}_{\alpha}(u^1, .., u^k))
+  \end{equation}
+  with partial derivatives
+  \begin{equation}
+    \left\{
+      \begin{array}{lcl}
+        \frac{\partial \vect{e}}{\partial u^i} & = &
+        \frac{\partial \vect{x}}{\partial u^i} + 
+        \sum_{\alpha} t^{\alpha}\frac{\vect{w}_{\alpha}}{\partial u^i}  \\
+        \frac{\partial \vect{e}}{\partial t^\beta} & = & \vect{w}_\beta
+      \end{array}
+    \right.
+  \end{equation}
+  
+  Since the n-vectors $\frac{\partial \vect{x}}{\partial u^1}$, ..,
+  $\frac{\partial \vect{x}}{\partial u^k}$, $\vect{w}_1$, .., $\vect{w}_{n-k}$
+  form a basis of $T_q\RR^n$, the matrix
+  \begin{equation}
+    A = \left(
+      \begin{matrix}
+        \left(\frac{\partial \vect{x}}{\partial u^1}\right)^T \\
+        \vdots \\
+        \left(\frac{\partial \vect{x}}{\partial u^k}\right)^T \\
+        \left(\vect{w}_1\right)^T \\
+        \vdots \\
+        \left(\vect{w}_{n-k}\right)^T
+      \end{matrix}
+    \right)
+  \end{equation}
+  is non-singular (we represent a vector as a column matrix). Multiply $A$ with
+  the Jacobian $J$ of $E(u, t)$ and we get
+  \begin{equation}
+    \begin{aligned}
+      AJ &= 
+      \left(
+        \begin{matrix}
+          \left(\frac{\partial \vect{x}}{\partial u^1}\right)^T \\
+          \vdots \\
+          \left(\frac{\partial \vect{x}}{\partial u^k}\right)^T \\
+          \left(\vect{w}_1\right)^T \\
+            \vdots \\
+          \left(\vect{w}_{n-k}\right)^T
+        \end{matrix}
+      \right)
+      \left(
+        \begin{matrix}
+          \frac{\partial \vect{e}}{\partial u^1} &
+          \cdots &
+          \frac{\partial \vect{e}}{\partial u^k} &
+          \frac{\partial \vect{e}}{\partial t^1} &
+          \cdots &
+          \frac{\partial \vect{e}}{\partial t^{n-k}} &
+        \end{matrix}
+      \right) \\
+      &=
+      \left(
+        \begin{matrix}
+          \left( \frac{\partial \vect{x}}{\partial u^i} \cdot \frac{\partial
+              \vec{x}}{\partial u^j} + \sum_{\alpha}
+            t^{\alpha}\frac{\vec{w}_{\alpha}}{\partial u^i} \cdot \frac{\partial
+              \vect{x}}{\partial u^j} \right) & 0
+          \\
+          \sum_{\alpha} t^{\alpha}\frac{\vect{w}_{\alpha}}{\partial u^i} \cdot
+          \vect{w}_{\beta} & \id
+        \end{matrix}
+      \right)
+    \end{aligned}
+  \end{equation}
+  
+  Since $J$ has the same rank of $AJ$, $J$ has the same nullity as the upper
+  left block of $AJ$. Using the identity
+  \begin{equation}
+    \begin{aligned}
+      0 &= \frac{\partial}{\partial u^i}\left(\vect{w}_{\alpha} \cdot
+        \frac{\partial
+          \vect{x}}{\partial u^j}\right) \\
+      &= t^{\alpha}\frac{\vect{w}_{\alpha}}{\partial u^i} \cdot \frac{\partial
+        \vect{x}}{\partial u^j} + \vect{w}_{\alpha} \cdot \frac{\partial^2
+        \vect{x}}{\partial u^i \partial u^j},
+    \end{aligned}
+  \end{equation}
+  we see that this upper left hand block is just the matrix 
+  \begin{equation}
+    \left( g_{ij} - \sum_{\alpha}t^{\alpha}\vect{w}_{\alpha} \cdot \vect{l}_{ij} \right)
+  \end{equation}
+
+  We choose the Riemman normal coordinate at $q$, so that $g_{ij}(q) =
+  \delta_{ij}$. Now, $\sum_{\alpha}t^{\alpha}\vect{w}_{\alpha} = t\vect{v}$. The
+  matrix
+  \begin{equation}
+    \label{eq:key}
+    \left(
+      \delta_{ij}-t\vect{v} \cdot  \vect{l}_{ij}
+    \right)
+  \end{equation}
+  is singular if and only if $\frac{1}{t} = K_i$. Furthermore, $\mu$ equals the
+  number of distinct $K_i$, each of which counted with its own
+  multiplicity. This proves the lemma.
+\end{proof}
+
+Suppose $\vect{p} = \vect{q}+t\vect{v}$. Then $\vect{q}$ is a critical point of
+$L_p$. Recall the criterion of $q$ being a non-degenerate critical point of
+$L_p$. The criterion is exactly Eq (\ref{eq:key}). We thus obtain the
+correspondence between the non-degeneracy of $L_p$ and the idea of focal points:
+
+\begin{cor}
+  The function $L_p$ is non-degenerate if and only if $p$ is not a focal point
+  of $M$. \qed
+\end{cor}
+
+$L_p$ is degenerate if and only if $p$ is a focal point, which is a critical
+value of a smooth map. By the following theorem of Sard, we see that there are
+infinitely many $p \in \RR^n$ such that $L_p$ is non-degenerate:
+
+\begin{thm}[Sard]
+  Let $f: M^m \to N^n$ be a smooth map between two smooth manifolds. Then the
+  critical values has measure 0 in $N^n$. \qed
+\end{thm}
+
+This established the existence of non-degenerate functions on $M$. As a result,
+the main theorem in this report is proved:
+
+\begin{thm}
+  A differentiable manifold has the homotopy type of a CW-complex.\qed
+\end{thm}
 
 
+The preceding corollary can be sharpened as follows. Let $k \ge 0$ be an integer
+and let $K \subset M$ be a compact set.
 
+\begin{cor}
+  Any bounded smooth function $f: M \to \RR$ can be uniformly approximated by a
+  smooth function $g$ which has no degenerate critical points. Furthermore $g$
+  can be chosen so that the i-th derivatives of $g$ on the compact set $K$
+  uniformly approximate the corresponding derivatives of $f$, for $i \le k$.
+\end{cor}
 
+\begin{proof}
+  Choose some embedding $h:M \to \RR^n$ of $M$ as a bounded subset of some
+  euclidean space so that the first coordinate $h_1$ is exactly
+  $f$. \footnote{By Whitney embedding theorem, there is an embedding $\phi : M
+    \in R^n$. Compose each coordinate of $\phi$ with $arctan$, we get a bounded
+    embedding, since $\psi = (\tan^{-1} \circ \phi^1, .., \tan^{-1} \circ
+    \phi^n)$ is one-to-one and the differential map is injective. Let $h = (f,
+    \tan^{-1}\phi)$. Then $h$ is an embedding from $M$ into $\RR^{n+1}$ such
+    that $h_1 = f$.} Let c be a large number. Choose a point
+  \begin{equation}
+    p = (-c+\epsilon_1, \epsilon_2, .., \epsilon_n)
+  \end{equation}
+  close to $(-c, 0, .., 0) \in \RR^n$ such that the function $L_p: M \to \RR$ is
+  non-degenerate. Define
+  \begin{equation}
+    g(x) = \frac{L_p(x)-c^2}{2c}
+  \end{equation}
+  A short computation gives
+  \begin{equation}
+    \begin{aligned}
+      g(x) &= \frac{\sum_i h_i^2(x)-h_i(x)p_i+p_i^2-c^2}{2c} \\
+           &= f(x) + \frac{\sum_i h_i^2(x)-\sum_i h_i(x)\epsilon_i+\sum_i \epsilon_i^2}{2c}-\epsilon_1.
+    \end{aligned}
+  \end{equation}
+  Since $K$ is compact and each $h_i$ is continuous and bounded, it's easy to
+  see that $g(x)$ approximates $f(x)$ uniformly by choosing $c$ large enough and
+  $\epsilon_i$ small enough. 
+\end{proof}
+
+The preceding theory can also be used to describe the index of the function
+$L_p$ at a critical point:
+
+\begin{lem}[Index theorem for $L_p$]
+  The index of $L_p$ at a non-degenerate critical point $q \in M$ is equal to
+  the number of focal points of (M, q) which lie on the segment from $q$ to $p$;
+  each focal point being counted with its multiplicity.
+\end{lem}
+
+\begin{proof}
+  The index of the matrix 
+  \begin{equation}
+    \left( \frac{\partial^2 L_p}{\partial u^i \partial
+        u^j}(q) \right) = 2(g_{ij}-t\vect{v} \cdot \vect{l}_{ij})
+  \end{equation}
+  equals the number of negative eigenvalues counting with multiplicity. Recall
+  that we can choose the normal coordinate such that $(g_{ij})$ is
+  identity. Then$\left( \frac{\partial^2 L_p}{\partial u^i \partial u^j}(q)
+  \right)$ has a negative eigenvalue if and only if $1-K_it < 0$ for some
+  principal curvatures $K_i$. Thus $K_i > \frac{1{t}$. Recall that the focal
+    points that lies on the line from $q$ through $p$ are of the form
+    $\vect{q}+K_i^{-1}\vect{v}$. Therefore the correspondece established. 
+    
+\end{proof}
 
 \section{The Lefschetz Theorem on Hyperplane Sections}
 
