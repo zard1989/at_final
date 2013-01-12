@@ -1,0 +1,135 @@
+\documentclass[12pt]{article}
+
+% This first part of the file is called the PREAMBLE. It includes
+% customizations and command definitions. The preamble is everything
+% between \documentclass and \begin{document}.
+
+\usepackage[margin=1in]{geometry}  % set the margins to 1in on all sides
+\usepackage{graphicx}              % to include figures
+\usepackage{amsmath}               % great math stuff
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % better theorem environments
+\usepackage{amssymb}
+
+
+% various theorems, numbered by section
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{defn}[thm]{Definition}
+
+
+\DeclareMathOperator{\id}{id}
+
+\newcommand{\bd}[1]{\mathbf{#1}}  % for bolding symbols
+\newcommand{\RR}{\mathbb{R}}      % for Real numbers
+\newcommand{\ZZ}{\mathbb{Z}}      % for Integers
+\newcommand{\col}[1]{\left[\begin{matrix} #1 \end{matrix} \right]}
+\newcommand{\comb}[2]{\binom{#1^2 + #2^2}{#1+#2}}
+
+
+\begin{document}
+
+
+\nocite{*}
+
+\title{Algebraic Topology Final Report: Morse Theory}
+
+\author{Shih-Kai Chiu \\
+r01221031}
+
+\maketitle
+
+\begin{abstract}
+  This report covers roughly the part I of J. Milnor's book(citation). The main
+  result is the theorem of Morse: every smooth manifold has the same homotopy
+  type of a CW-complex. We prove this theorem by developing the concept of
+  non-degenerate smooth functions, their index at critical points and the
+  correspondence between the index and the dimension of attaching cells. After
+  the main theorem, the existence of non-degenerate smooth functions on
+  manifolds is established, and as an application, an alternating proof of the
+  Lefschetz hyperplane theorem is given.
+\end{abstract}
+
+
+\section{Basic Definitions and Lemmas}
+
+
+\subsection{Attaching Cells}
+
+Let $Y$ be any topological space, and let
+\begin{equation}
+  e^k = \{ x \in \RR^k | \left| x \right| < 1 \}
+\end{equation}
+be the k-cell. The boundary
+\begin{equation}
+  \dot{e}^k = \{ x \in \RR^k | \left| x \right| = 1 \}
+\end{equation}
+is the (k-1)-sphere, $S^{k-1}$. Specifically, we put $e^0$ as a point and set
+$\dot{e}^0 = \emptyset$. We call a continuous map $g: S^{k-1} \to Y$ an
+attaching map and obtain a new topological space
+\begin{equation}
+  Y \cup_g e^k
+\end{equation}
+by identifying each $x \in \dot{e}^k$ with $g(x) \in Y$.
+
+
+\subsection{Non-degenerate critical points}
+
+Let $M^n$ be a smooth manifold of dimension $n$, and let $f: M \to \RR$ be a
+smooth function on $M$. We recall that a point $x \in M$ is called a critical
+point of $f$ if the differential map $ df_p : T_pM \to \RR $ is singular. This
+is equivalent to $\frac{\partial f}{\partial x^i} (p) = 0$ for all $i = 1,
+.. ,k$ and any local coordinate $(x^1, .., x^k)$, since the map $df_p$ in local
+coordinate is a row matrix with a non-empty kernel.
+
+\begin{defn}
+  (Non-degenerate critical point) Let $p \in M$ and let $(x^1, .., x^k)$ be a
+  local coordinate at $p$. $p$ is called a non-degenerate critical point of $f$
+  if
+  \begin{equation}
+    \left( \frac{\partial^2 f}{\partial x^i \partial x^j} (p) \right)
+  \end{equation}
+  is an invertible matrix. On the other hand, $p$ is a called degenerate
+  critical point if the matrix is singular.
+\end{defn}
+
+The definition above is independent of local coordinates. For, if $(x^1, ..,
+x^k)$ and $(y^1, .., y^k)$ are two local coordinates at $p$, then
+\begin{equation}
+      \left( \frac{\partial^2 f}{\partial y^k \partial y^l} (p) \right) =
+      J^T\left( \frac{\partial^2 f}{\partial x^i \partial x^j} (p) \right)J,
+\end{equation}
+where $J = \left( \frac{\partial x^i}{\partial y^j}(p) \right)_{i,j}$ is the
+coordinate change matrix, which is non-singular.
+
+\section{Homotopy Type in Terms of Critical Values}
+
+Let $M$ be a smooth manifold of dimension $k$. By Whitney Embedding Theorem, we
+can embed $M$ into $\RR^n, n > k$. Let $N = \{ (q,v) \in \RR^{2n} | q \in M, v
+\in (T_qM)^{\perp} \subset \RR^n \}$ be the normal bundle of $M$ in $\RR^n$. We
+define a map $E$ that maps $N$ into the ambient space $\RR^n$ by
+\begin{equation}
+  E(q, v) = q + v.
+\end{equation}
+The point $q+v$ thus line in a normal line that is perpendicular to $M$ at
+$p$. This leads to the definition of focal points:
+
+\begin{defn}
+  e \in \RR^n is a focal point of (M, q) with multiplicity \mu 
+\end{defn}
+
+
+\section{Manifolds in Euclidean Space: The Existence of Non-degenerate
+  Functions}
+
+
+
+
+\section{The Lefschetz Theorem on Hyperplane Sections}
+
+
+\end{document}
