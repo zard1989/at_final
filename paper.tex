@@ -108,23 +108,42 @@ coordinate change matrix, which is non-singular.
 
 \section{Homotopy Type in Terms of Critical Values}
 
-Let $M$ be a smooth manifold of dimension $k$. By Whitney Embedding Theorem, we
-can embed $M$ into $\RR^n, n > k$. Let $N = \{ (q,v) \in \RR^{2n} | q \in M, v
-\in (T_qM)^{\perp} \subset \RR^n \}$ be the normal bundle of $M$ in $\RR^n$. We
-define a map $E$ that maps $N$ into the ambient space $\RR^n$ by
-\begin{equation}
-  E(q, v) = q + v.
-\end{equation}
-The point $q+v$ thus line in a normal line that is perpendicular to $M$ at
-$p$. This leads to the definition of focal points:
-
-\begin{defn}
-  e \in \RR^n is a focal point of (M, q) with multiplicity \mu 
-\end{defn}
-
 
 \section{Manifolds in Euclidean Space: The Existence of Non-degenerate
   Functions}
+Let $M$ be a smooth manifold of dimension $k$. By Whitney Embedding Theorem, we
+can embed $M$ into $\RR^n, n > k$. Therefore, without loss of generality we may
+assume $M \subset \RR^n$. For each $p \in \RR^n$, define a smooth function $L_p
+: M \to \RR $ by
+\begin{equation}
+  L_p(q) = |q-p|^2.
+\end{equation}
+
+We want to find a $p \in \RR^n$ such that $L_p$ has no degenerate critical
+points in $M$. Let $q \in M$ and let $(u^1, .., u^k) \mapsto (x^1(u), ..,
+x^n(u))$ be a local coordinate at $q$. Then $q$ is a critical point if
+$\frac{\partial f}{\partial u^i}(q) = 0 \forall i = 1, .., k.$; that is,
+
+
+Let $N = \{ (q,v) \in \RR^{2n} | q \in M, v \in (T_qM)^{\perp} \subset \RR^n \}$
+be the normal bundle of $M$ in $\RR^n$. Then $N$ is a manifold of dimension
+$k+(n-k)=n$. We define a map $E$ that maps $N$ into the ambient space $\RR^n$ by
+\begin{equation}
+  E(q, v) = q + v.
+\end{equation}
+This is a differentiable map between two manifolds of dimension $n$. The point
+$q+v$ thus line in a normal line that is perpendicular to $M$ at $p$. This leads
+to the definition of focal points:
+
+\begin{defn}
+  $e \in \RR^n$ is a focal point of $(M, q)$ with multiplicity $\mu > 0$ if $e =
+  q+v$, where $(q, v) \in N$ and the Jacobian of $E$ at $(q, v)$ has nullity
+  $\mu > 0$. $e$ is called a focal point of $M$ if $e$ is a focal point of $(M,
+  q)$, $q \in M$.
+\end{defn}
+
+The focal points will play an important role in the construction of a kind
+
 
 
 
