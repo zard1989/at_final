@@ -29,6 +29,7 @@
 \newcommand{\bd}[1]{\mathbf{#1}}  % for bolding symbols
 \newcommand{\RR}{\mathbb{R}}      % for Real numbers
 \newcommand{\ZZ}{\mathbb{Z}}      % for Integers
+\newcommand{\CC}{\mathbb{C}}
 \newcommand{\col}[1]{\left[\begin{matrix} #1 \end{matrix} \right]}
 \newcommand{\comb}[2]{\binom{#1^2 + #2^2}{#1+#2}}
 \newcommand{\vect}[1]{\vec{#1}}
@@ -887,6 +888,69 @@ $L_p$ at a critical point:
 
 \section{The Lefschetz Theorem on Hyperplane Sections}
 
-As an application of the previous results, 
+As an application of the previous results, we will prove the Lefschetz theorem
+on hyperplane sections in this section. Before the development, we should show
+that every complex analytic manifold can be viewed as a CW-complex:
+
+\begin{thm}
+  A complex manifold analytic manifold $M$ of complex dimension $k$,
+  bianalytically embedded as a closed subset of $\CC^n$ has the homotopy type of
+  a $k$-dimensional CW-complex.
+\end{thm}
+
+The proof will be broken up into several steps. First we consider a quadratic
+form in $k$ complex variables
+\begin{equation}
+  Q(z^1, .., z^k) = \sum b_{hj}z^hz^j.
+\end{equation}
+
+If we substitute $x^h+iy^h$ for $z^h$ and take the real part of $Q$, we obtain a
+real quadratic form in $x^1, .., x^k, y^1, .., y^k$:
+
+\begin{equation}
+  Q'(x^1, .., x^k, y^1, .., y^k) = Re\{\sum b_{hj}z^hz^j\}.
+\end{equation}
+
+\begin{asser}
+  If $e$ is an eigenvalue of $Q'$ with multiplicity $\mu$, then $-e$ is also an
+  eigenvalue with the same multiplicity $\mu$.
+\end{asser}
+
+\begin{proof}
+  First we note that $Q(iz^1, .., iz^k) = -Q(z^1, .., z^k)$. Therefore, in terms
+  of $Q'$, we have
+  \begin{equation}
+    -Q' = J^TQ'J
+  \end{equation}
+  where
+  \begin{equation}
+    J = 
+    \left(
+      \begin{matrix}
+        O & -I_k \\
+        I_k & O
+      \end{matrix}
+    \right)
+  \end{equation}
+  is an orthogonal matrix. Therefore
+  \begin{equation}
+    \begin{aligned}
+      det(eI-Q') = 0 &\Leftrightarrow det(eI-J^TQ'J) = 0 \\
+      &\Leftrightarrow det(eI+Q') = 0.      
+    \end{aligned}
+  \end{equation}
+\end{proof}
+
+Now consider a complex manifold $M$ which is bianalytically embedded as a subset
+of $\CC^n$. Let $q$ be a point of $M$.
+
+\begin{asser}
+  The focal points of $(M, q)$ along any normal lines $\mathbb{l}$ ocur in pairs
+  which are situated symmetrically about $q$.
+\end{asser}
+
+\begin{proof}
+  
+\end{proof}
 
 \end{document}
