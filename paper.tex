@@ -1,4 +1,5 @@
-\documentclass[12pt]{article}
+% \documentclass[12pt]{article}
+\documentclass[a4paper,11pt,reqno]{amsart}
 
 % This first part of the file is called the PREAMBLE. It includes
 % customizations and command definitions. The preamble is everything
@@ -20,7 +21,8 @@
 \newtheorem{cor}[thm]{Corollary}
 \newtheorem{conj}[thm]{Conjecture}
 \newtheorem{defn}[thm]{Definition}
-
+\newtheorem{asser}[thm]{Assertion}
+\newtheorem{rmk}[thm]{Remark}
 
 \DeclareMathOperator{\id}{id}
 
@@ -84,13 +86,12 @@ Let $M^n$ be a smooth manifold of dimension $n$, and let $f: M \to \RR$ be a
 smooth function on $M$. We recall that a point $x \in M$ is called a critical
 point of $f$ if the differential map $ df_p : T_pM \to \RR $ is singular. This
 is equivalent to $\frac{\partial f}{\partial x^i} (p) = 0$ for all $i = 1,
-.. ,k$ and any local coordinate $(x^1, .., x^k)$, since the map $df_p$ in local
-coordinate is a row matrix with a non-empty kernel.
+.. ,k$ and any local coordinate system $(x^1, .., x^k)$, since the map $df_p$ in
+local coordinates is a row matrix with a non-empty kernel.
 
 \begin{defn}
-  (Non-degenerate critical point) Let $p \in M$ and let $(x^1, .., x^k)$ be a
-  local coordinate at $p$. $p$ is called a non-degenerate critical point of $f$
-  if
+  Let $p \in M$ and let $(x^1, .., x^k)$ be a local coordinate system centered
+  at $p$. $p$ is called a non-degenerate critical point of $f$ if
   \begin{equation}
     \left( \frac{\partial^2 f}{\partial x^i \partial x^j} (p) \right)
   \end{equation}
@@ -107,7 +108,476 @@ x^k)$ and $(y^1, .., y^k)$ are two local coordinates at $p$, then
 where $J = \left( \frac{\partial x^i}{\partial y^j}(p) \right)_{i,j}$ is the
 coordinate change matrix, which is non-singular.
 
+The non-degeneracy of critical points also has an intrinsic meaning. Let $p$ be
+a critical point. We define a symmetric bilinear form $f_{**}$ on $T_PM$, called
+the \emph{Hessian} of $f$ at $p$. If $v, w \in T_pM$, then $v$ and $w$ have
+extensions $\tilde{v}, \tilde{w}$. Define $f_{**}(v, w) =
+\tilde{v}_p((\tilde{w})f)$. We must show that this is symmetric and
+well-defined.$f_{**}$ is symmetric, since $\tilde{v}_p((\tilde{w})f) -
+\tilde{w}_p((\tilde{v})f) = [\tilde{v}, \tilde{w}_p](f) = 0$\footnote{The last
+  equality holds because $p$ is a critical point of $f$.} Therefore $f_{**}(v,
+w) = v((\tilde{w})f) = w((\tilde{v})f)$. From both expressions of $f_{**}$ we
+see that the definition is independent of the extensions of $v$ and $w$.
+
+If $(x^1, .., x^n)$ is a local coordinate system, then the bilinear form
+$f_{**}$ can be expressed as a symmetric matrix $\left(\frac{\partial^2
+    f}{\partial x^i \partial x^j}(p)\right)$. Thus $p$ is a non-degenerate
+critical point if the Hessian of $f$ at $p$ is a non-degenerate symmetric form.
+
+Let $p$ be a critical point. We define the \emph{index of $f$ at $p$} as the
+maximal dimension of subspaces in which $f_{**}$ is negative definite. The
+\emph{nullity} is the subspace $V$ of $T_pM$ such that $f_{**}(V,w) = 0$ for all
+$w \in T_pM$. The lemma of Morse shows that the behavior of $f$ at $p$ can be
+completely described by this index. Before proving this, there is a small lemma:
+
+\begin{lem}
+  Let $f$ be a smooth function in a convex neighborhood $V$ of $0$ in $\RR^n$,
+  with $f(0) = 0$. Then
+  \begin{equation}
+    f(x_1, .., x_n) = \sum_{i=1}^{n} x_ig_i(x_1, .., x_n)
+  \end{equation}
+  for some smooth $g_i$ defined in $V$, with $g_i(0) = \frac{\partial
+    f}{\partial x_i}(0)$.
+\end{lem}
+
+\begin{proof}
+  \begin{equation}
+    \begin{aligned}
+      f(x_1, .., x_n) &= \int_0^1 \frac{d f(tx_1, .., tx_n)}{dt} dt \\
+                     &= \int_0^1 \sum_{i=1}^{n} x_i\frac{\partial f}{\partial
+                       x_i}(tx_i) dt
+    \end{aligned}
+  \end{equation}
+  Set $g_i = \int_0^1 \sum_{i=1}^{n} \frac{\partial f}{\partial x_i}(tx_i) dt$.
+\end{proof}
+
+\begin{lem}[Lemma of Morse]
+  Let $p$ be a non-degenerate critical point for $f$. Then there is a local
+  coordinate system $(y^1, .., y^n)$ in a neighborhood $U$ of $p$ with $y^i(p) =
+  0$ and for all $i$ and such that the identity
+  \begin{equation}
+    f = f(p) - (y^1)^2 - .. - (y^\lambda)^2 + (y^{\lambda+1})^2 + .. + (y^n)^2
+  \end{equation}
+  where $\lambda$ is the index of $f$ at $p$.
+\end{lem}
+
+\begin{proof}
+  Suppose such a local coordinate system exists. We prove that $\lambda$ must be
+  the index of $f$ at $p$. If
+  \begin{equation}
+        f(q) = f(p) - (y^1(q))^2 - .. - (y^\lambda(q))^2 + (y^{\lambda+1}(q))^2 + .. + (y^n(q))^2,
+  \end{equation}
+  then
+  \begin{equation}
+    \frac{\partial^2 f}{\partial y^i \partial y^j} = 
+    \begin{cases}
+      -2 & i = j \le \lambda, \\
+      2  & i = j > \lambda, \\
+      0  & otherwise,
+    \end{cases}
+  \end{equation}
+  which shows that $\lambda$ is the index of $f$ at $p$.
+
+
+  We now show that such a local coordinate system exists.
+
+  
+  Let $(x^1, .., x^n)$ be a local coordinate system in a neighborhood $U$ of
+  $p$, such that $x^i(p) = 0$ for all $i$. We may also suppose that $f(p) = 0$.
+  By the previous lemma we can write
+  \begin{equation}
+    f(x_1, .., x_n) = \sum_j x_jg_j(x_1, .., x_n)
+  \end{equation}
+  Since $p$ is a critical point, 
+  \begin{equation}
+    0 = \frac{\partial f}{\partial x^j}(0) = g_j(0).
+  \end{equation}
+  
+  Applying the lemma to $g_j$, we have
+  \begin{equation}
+    g_j(x) = \sum_i x_ih_{ij}(x_1, .., x_n).
+  \end{equation}
+  It follows that
+  \begin{equation}
+    f(x_1, .., x_n) = \sum_{i,j} x^ix^jh_{ij}(x_1, .., x_n).
+  \end{equation}
+  
+  We may assume $h_{ij}$ is symmetric, since we can write $\bar{h}_{ij} =
+  \frac{1}{2}(h_{ij}+h_{ji})$ and get $f = \sum_{i,j}
+  x^ix^j\bar{h}_{ij}$. Moreover, $\bar{h}_{i,j}(0) = \frac{1}{2}\frac{\partial^2
+    f}{\partial x^i \partial x^j}(0)$, so it is non-singular.
+
+  By induction, we proceed to find the local coordinate system to express $f$ in
+  the desired form. Suppose by induction we have coordinates $u_1, .., u_n$ in a
+  neighborhood $U$ of $p$ such that
+  \begin{equation}
+    f = \pm (u_1)^2 \pm .. \pm (u_{r-1})^2 + \sum_{i, j \ge r} u_iu_jH_{ij}(u_1,
+    .., u_n),
+  \end{equation}
+  where $H_{ij}$ is symmetric and non-singular at $0$. After a linear
+  change\footnote{If some of the diagonal elements is nonzero, say $H_{qq}$, we
+    swap the two coordinates $u_r$ and $u_q$. If all diagonal elements are
+    zeros, then we choose $k > r$ such that $\frac{\partial^2 f}{\partial
+      u^r \partial u^{k}} \ne 0$. Define new coordinates $(w^1, .., w^n) = (u^1,
+    .., u^{r-1}, \frac{u^r+u^k}{2}, u^{r+1}, .., u^{k-1}, \frac{u^r-u^k}{2},
+    u^{k+1}, .., u^n)$. Then $\frac{\partial^2 f}{\partial w^r \partial w^r} =
+    2\frac{\partial^2 f}{\partial u^r \partial u^k} \ne 0$, as desired.} in the
+  last $n-r+1$ coordinates, we may assume that $H_{rr}(0) \ne 0$.Put $g(u_1, ..,
+  u_n) = \sqrt{|{H_{rr}}|}$. Then there is a smaller neighborhood $U_2 \subset
+  U_1$ of $p$ such that $g \ne 0$. A short calculation shows:
+
+  \begin{equation}
+    \begin{aligned}
+      \sum_{i,j\ge r}u_iu_jH_{ij} 
+      &= (u_r)^2H_{rr} + 2\sum_{i>r}u_iu_rH_{ir}+\sum_{i,j>r}u_iu_jH_{ij} \\
+      &= \pm g(u_r+\sum_{i>r}\frac{u_iH_{ir}}{H_{rr}})^2+\sum_{i,j>r}u_iu_jH_{ij}',
+    \end{aligned}
+  \end{equation}
+  where
+  \begin{equation}
+    H_{ij}' = H_{ij}-\frac{H_iH_j}{H_{rr}}
+  \end{equation}
+  is symmetric.
+
+  Define new local coordinates
+  $v_1$, .., $v_n$ by
+  \begin{equation}
+    v_i = 
+    \begin{cases}
+      u_i & i \ne r \\
+      g(u_1, .., u_n)\left[u_r+\sum_{i>r}\frac{u_iH_{ir}}{H_{rr}}\right] & i = r
+    \end{cases}
+  \end{equation}
+
+  By induction, the proof is complete.
+
+\end{proof}
+
+\begin{defn}
+  A 1-parameter group of diffeomorphisms of a manifold $M$ is a smooth map
+  \begin{equation}
+    \phi : \RR \times M \to M
+  \end{equation}
+  such that
+  \begin{itemize}
+  \item for each $t \in \RR$ the map $\phi_t : M \to M$ defined by $\phi_t(q) =
+    \phi(t, q)$ is a diffeomorphism of $M$ onto itself, and that
+  \item for all $t,s \in \RR$, $\phi_{t+s} = \phi_t \circ \phi_s$.
+  \end{itemize}
+\end{defn}
+
+\begin{lem}
+  A smooth vector field on $M$ which vanishes outside of a compact set $K
+  \subset M$ generates a unique 1-parameter group of diffeomorphisms on $M$.
+\end{lem}
+
+\begin{proof}
+  Let $p \in M$. Then there exists a neighborhood $U$ of $p$ and $\epsilon > 0$
+  such that the local flow $\phi : (-\epsilon, \epsilon)\times U \to M$ exists
+  and is unique and the dependence on initial values is smooth. Since $K$ is
+  compact, it can be covered by a finite number of $U$. Let $\epsilon_0$ be the
+  smallest $\epsilon$ and set $\phi_t(q) = q$ for all $q \notin K$. Then the
+  flow $\phi: (-\epsilon_0, \epsilon_0)\times M \to M$ exists and is unique. If
+  $|s|,|t,|s+t| < \epsilon_0$ and set $f(t) = \phi_t(q)$. Then $\frac{df}{dt} =
+  X_{f(t)}$ and $f(0) = \phi_s(q)$. Then $f(t) = \phi_{t+s}(q)$ by
+  uniqueness. Thus $\phi_{t+s} = \phi_t \circ \phi_s$.
+
+  We can extend the time domain from $(-\epsilon_0, \epsilon_0)$ to $\RR$ by
+  define
+  \begin{equation}
+    \phi_t = \phi_{\frac{\epsilon_0}{2}} \circ \phi_{\frac{\epsilon_0}{2}} \circ
+    .. \circ \phi_{\frac{\epsilon_0}{2}} \circ \phi_r,
+  \end{equation}
+  where $t = k\frac{\epsilon_0}{2}+ r$ and $|r| \le \frac{\epsilon_0}{2}$.
+\end{proof}
+
 \section{Homotopy Type in Terms of Critical Values}
+
+Let $M$ be a smooth manifold and let $f: M \to \RR$ be a smooth function without
+degenerate critical points. First we define
+\begin{equation}
+  M^a = f^{-1}(-\infty, a] = \{ p \in M | f(p) \le a \}.
+\end{equation}
+
+Then we investigate the ``topological difference'' between $M^a$ and $M^b$,
+where $a < b$. The first case is simpler, namely there is no critical point in
+$f^{-1}[a,b]$:
+
+\begin{thm}
+  Suppose $f^{-1}[a,b]$ is compact and contains no critical points of $f$. Then
+  $M^a$ is diffeomorphic to $M^b$. Furthermore, $M^a$ is a deformation retract
+  of $M^b$, so that the inclusion map $\iota : M^a \to M^b$ is a homotopy
+  equivalence.
+\end{thm}
+
+\begin{proof}
+  Intuitively, we try to ``squeeze'' $M^b$ into $M^a$ in the direction of the
+  gradient of $f$. Choose a Riemannian metric on $M$ and denote the inner
+  product as $\langle X, Y \rangle$. The \emph{gradient} of $f$ is characterized
+  by the identity\footnote{In fact, it is uniquely defined. To see this, choose
+    local coordinates $u^1$, .., $u^n$ and put $X = \frac{\partial}{\partial
+      u^i}$ into the identity. Write $grad \: f = f^j\frac{\partial}{\partial
+      u^j}$. Then identity becomes $g_{ij}\frac{\partial}{\partial u^j} =
+    \frac{\partial f}{\partial u^i}$. Taking inverse of the matrix $(g_{ij})$,
+    we get $a^j = g^{ji}\frac{\partial f}{\partial u^i}$.}
+  \begin{equation}
+    \langle X, grad \: f\rangle = X(f)
+  \end{equation}
+  
+  Let $\rho : M \to \RR$ be a smooth function which is equal to $1/\langle grad
+  \: f, grad \: f \rangle$ throughout the compact set
+  $f^{-1}[a,b]$\footnote{$grad \: f \ne 0$ in $f^{-1}[a,b]$; otherwise there is
+    a critical point. It is easy to check this in terms of normal coordinates.}
+  , and which vanishes outside of a compact neighborhood of this set. Then the
+  vector field 
+  \begin{equation}
+    X = \rho (grad \: f)
+  \end{equation}
+  satisfies the condition in the last lemma of the previous section. Hence $X$
+  generates a 1-parameter group of diffeomorphisms
+  \begin{equation}
+    \phi_t : M \to M.
+  \end{equation}
+
+  For fixed $q \in M$ consider the function $t \mapsto f(\phi_t(q))$. Then If
+  $\phi_t(q) \in f^{-1}[a,b]$, then
+  \begin{equation}
+    \frac{d f(\phi_t(q))}{dt} = X_{\phi_t q}(f) = +1
+  \end{equation}
+  Hence the correspondence $t \mapsto f(\phi_t(q))$ is linear as long as
+  $f(\phi_t(q)) \in [a,b]$. It follows that $f(\phi_{t}(q)) = t + f(q)$ in a
+  small neighborhood of $0 \in \RR$, where $q \in f^{-1}[a,b]$.
+
+  Consider the diffeomorphism $\phi_{b-a} : M \to M$. By above it's clear
+  that $\phi_{b-a}$ maps $M^a$ diffeomorphically onto $M^b$. This prove the
+  first part of the theorem.
+
+  Now we construct a 1-parameter family of maps by
+  \begin{equation}
+    r_t(q) =
+    \begin{cases}
+      q & if f(q) \le a \\
+      \phi_{t(a-f(q))}(q) & if a \le f(q) \le b.
+    \end{cases}
+  \end{equation}
+
+  Then $r : [0,1] \times M^b \to M^a$ is a homotopy between identity of $M^a$
+  and the deformation retract from $M^b$ to $M^a$. This completes the proof.
+\end{proof}
+
+The case when $f^{-1}[a,b]$ contains a critical point of $f$ is the essential
+part of the Morse theory. It can be shown that $M^b$ is just $M^a$ with a number
+of cells attached.
+
+\begin{thm}
+  Let $f: M \to \RR$ be a smooth function and let $p$ be a non-degenerate
+  critical point with index $\lambda$. Setting $f(p) = c$, suppose that $p$ is
+  the only critical point in $f^{-1}[c-\epsilon, c+\epsilon]$, for some
+  $\epsilon > 0$. Then for all $\epsilon$ sufficiently small, the set
+  $M^{c-\epsilon}$ has the same homotopy type of $M^{c+\epsilon}$ with a
+  $\lambda$-cell attached.
+\end{thm}
+
+The idea of the proof is to define a new smooth function $F: M \to \RR$ such
+that inside a small neighborhood $H$ of $p$, $F < f$, and that $F = f$ outside
+$H$. So $F^{-1}[-\infty, c-\epsilon] = M^{c-\epsilon} \cup H$ and
+$F^{-1}[-\infty,c+\epsilon] = M^{c+\epsilon}$. If $F^{-1}[c-\epsilon,
+c+\epsilon]$ has no critical point and is compact, then $M^{c-\epsilon} \cup H$
+is a deformation retract of $M^{c+\epsilon}$ by the preceding theorem. If $H$
+can be deformed into a $\lambda$-cell in it, the theorem is proved.
+
+By the idea above, we divide the proof of the theorem into the following
+steps.
+
+Choose a coordinate system $u^1$, .., $u^n$ in a neighborhood $U$ of $p$ so that
+the identity
+\begin{equation}
+  f = c - (u^1)^2 - .. - (u^{\lambda})^2 + (u^{\lambda+1})^2 + .. + (u^{n})^2
+\end{equation}
+holds throughout $U$ (Morse lemma). Then at $p$ we have $u^i(p) = 0$, $i = 1,
+.., n$.
+
+Choose $\epsilon > 0$ sufficiently small so that
+\begin{itemize}
+\item The region $f^{-1}[c-\epsilon,c+\epsilon]$ is compact and contains no
+  critical points other than p.
+\item The diffeomorphic image of $U$ in $\RR^n$ contains the closed ball
+  $\{\sum_i (u^i)^2 \le 2\epsilon\}$.
+\end{itemize}
+
+Then $U$ contains a $\lambda$-cell, namely the inverse image of
+$\{(u^1)^2+..+(u^{\lambda})^2 \le \epsilon, u^{\lambda+1}=..=u^{n} = 0\}$. Note
+that $e^\lambda \cap M^{c-\epsilon}$ is exactly $\{f = c- \epsilon\} =
+\{(u^1)^2+..+(u^\lambda)^2 = \epsilon \}$. So that the $\lambda$-cell is really
+attached to $M^{c-\epsilon}$.
+
+Next we construct a new smooth function $F : M \to \RR$ as follows. Let $\mu
+:\RR \to \RR$ be a smooth function satisfying the conditions
+\begin{equation}
+  \begin{cases}
+    \mu(0) > \epsilon \\
+    \mu(r) = 0 \: \forall r \ge 2\epsilon \\
+    -1 < \mu'(r) \le 0 \: \forall r.
+  \end{cases}
+\end{equation}
+
+For example, we can define $\mu$ as follows. Let $\mu = \epsilon'
+\frac{\int_x^{2\epsilon} \alpha(t)\alpha(2\epsilon-t)}dt{\int_0^{2\epsilon}
+  \alpha(t)\alpha(2\epsilon-t)}dt$, where $2\epsilon > \epsilon' > \epsilon$ and
+\begin{equation}
+  \alpha(x) =
+  \begin{cases}
+    0 & x \le 0 \\
+    e^{-1/x} & x > 0
+  \end{cases}
+\end{equation}
+is smooth. Then $0 \ge \mu'(r) > -\frac{\epsilon'}{2\epsilon} > -1$.
+
+Now let F coincides with f outside of the coordinate neighborhood $U$, and let
+\begin{equation}
+  F = f -\mu((u^1)^2+..+(u^{\lambda})^2 + 2(u^{\lambda+1})^2+..+(u^{n})^2)
+\end{equation}
+within $U$. It is easily verified that $F$ is a well-defined smooth function
+throughout $M$.
+
+It is convenient to write $\xi = (u^1)^2+..+(u^{\lambda})^2$ and $\eta =
+(u^{\lambda+1})^2+..+(u^{n})^2$.
+
+\begin{asser}
+  The region $F^{-1}(-\infty, c+\epsilon]$ coincides with the region $M^{c+\epsilon}$.
+\end{asser}
+
+\begin{proof}
+  Let $A = f^{-1}[-\infty, c+\epsilon]$, and let $B = F^{-1}[-\infty,
+  c+\epsilon]$. If $q \in A$, then $F(q) \le f(q) \le c+\epsilon$ and so $q \in
+  B$. To prove the converse, let $q \in B$. If $q \in \{ \xi + 2\eta \le
+  2\epsilon \}$, then $f(q) = c - \xi + \eta \le c+ \frac{1}{2}\xi + \eta \le
+  c+\epsilon$. If $q \notin \{ \xi + 2\eta \le 2\epsilon \}$, then $f(q) =
+  F(q) \le c+\epsilon$. In both cases, $q \in A$.
+\end{proof}
+
+\begin{asser}
+  The critical points of $F$ are the same as those of $f$.
+\end{asser}
+
+\begin{proof}
+  \begin{equation}
+    \nonumber
+    \begin{aligned}
+      F &= c - \xi + \eta - \mu(\xi+2\eta) \\
+      \frac{\partial F}{\partial \xi} &= -1 - \mu'(\xi+2\eta) < 0 \\
+      \frac{\partial F}{\partial \eta} &= 1 - 2\mu'(\xi+2\eta) ge 1 \\
+      dF &= \frac{\partial F}{\partial \xi}d\xi+\frac{\partial F}{\partial
+        \eta}d\eta
+    \end{aligned}
+  \end{equation}
+  Since the 1-forms $d\xi$ and $d\eta$ are simultaneously 0 only when both
+  $\xi$ and $\eta$ equal 0, it follows that $F$ has no critical point in $U$
+  other than $p$.
+\end{proof}
+
+Now, since $F \le f$, if $q \in F^{-1}[c-\epsilon, c+\epsilon]$, then
+$c-\epsilon \le f(q)$. But $q \in F^{-1}(-\infty, c+\epsilon] = f^{-1}(-\infty,
+c+\epsilon]$, $f(q) \le c+ \epsilon$. Therefore $q \in f^{-1}(-\infty,
+c+\epsilon]$. This proves that $F^{-1}[c-\epsilon, c+\epsilon] \subset
+f^{-1}[c-\epsilon, c+\epsilon]$. Being a closed subset of a compact set in a
+locally compact Hausdorff space, $F^{-1}[c-\epsilon, c+\epsilon]$ is compact.
+Note that $F(p) = c- \mu(0) \le c-\epsilon$. $p \notin F^{-1}[c-\epsilon,
+c+\epsilon]$. Together with the preceding theorem we get
+
+\begin{asser}
+  $F^{-1}(-\infty, c-\epsilon]$ is a deformation retract of $F^{-1}[-\infty,
+  c+\epsilon]$. \qed
+\end{asser}
+
+Write $F^{-1}(-\infty, c-\epsilon]$ as $M^{c-\epsilon}\cup H$, where $H$ is the
+closure of $F^{-1}(-\infty, c-\epsilon] - M^{c-\epsilon}$. In fact, $H = \{
+\epsilon-\mu(\xi+2\eta) \le \xi-\eta \le \epsilon \}$. Define
+\begin{equation}
+  e^\lambda = \{ q | \xi(q) \le \epsilon, \eta(q) = 0\}
+\end{equation}
+Then $e^\lambda \subset H$. For, if $q \in e^\lambda$, then $f(q) >
+c-\epsilon$. Thus $q \notin M^{c-\epsilon}$. Also, since $\frac{\partial
+  F}{\partial \xi} < 0$, $F(q) < F(p) < c-\epsilon$. Thus $q \in F^{-1}(-\infty,
+c-\epsilon]$.
+
+\begin{asser}
+  $M^{c-\epsilon} \cup e^\lambda$ is a deformation retract of
+  $M^{c-\epsilon}\cup H$.
+\end{asser}
+
+\begin{proof}
+  We operate on the diffeomorphic image on $\RR^n$. In the $\xi-\eta$ plane, $H$
+  is the region $F \ge c-\epsilon$ minus the region $f \ge c-\epsilon$.
+  
+  Denote the homotopy between the retraction and identity by $r_t : [0,1]\times
+  (M^{c-\epsilon}\cup H) \to M^{c-\epsilon} \cup e^\lambda$.
+  
+  Decompose $H$ into 2 regions: (1) $\xi \le \epsilon$ and (2) $\epsilon \le \xi
+  \le \eta + \epsilon$.
+
+  In region (1), we simply project $H$ into $e^\lambda$. The homotopy is thus
+  given by 
+  \begin{equation}
+    r_t: (t, (u^1,..,u^n)) \mapsto (u^1, .., u^\lambda, tu^{\lambda+1}, .., tu^n).
+  \end{equation}
+
+  We check that the homotopy lies entirely in $H =
+  \{\epsilon-\mu(\xi+2\eta) \le \xi-\eta \le \epsilon \}$. It does,
+  indeed, since $\epsilon \ge \xi > \xi-t^2\eta > \xi-\eta \ge
+  \epsilon-\mu(\xi+2\eta) \ge \epsilon-\mu(\xi+2t\eta)$.
+
+  In region (2), we project this part into $M^{c-\epsilon}$, in the
+  $\eta$-direction as the in case (1). Let the following denote the projection:
+  \begin{equation}
+    (u^1, .., u^n) \mapsto
+    (u^1, .., u^\lambda, cu^{\lambda+1}, .., cu^n) \in M^{c-\epsilon}
+  \end{equation}
+  
+  Then it's easy to calculate $c =
+  (\frac{\xi-\epsilon}{\eta})^{\frac{1}{2}}$. Then the homotopy is simply the
+  line along the projection:
+  \begin{equation}
+    r_t: (t, (u^1,..,u^n)) \mapsto
+    (u^1, .., u^\lambda, s_tu^{\lambda+1}, .., s_tu^n),
+  \end{equation}
+  where
+  \begin{equation}
+    s_t = t + (1-t)c.
+  \end{equation}
+
+  Again we check that the homotopy lies entirely in $H$. This is true, since
+  $s_t \in [0,1]$. More precisely, $\xi-s_t^2\eta \ge \xi-\eta \ge
+  \epsilon-\mu$.
+
+
+  Since $s_t$ is continuous and it is compatible with the case (1) when $\xi =
+  \epsilon$, $r_t$ is well-defined and continuous on the union.
+
+  It remains to define $r_t$ on $M^{c-\epsilon}$. We simply define it as the
+  identity map. Note that this definition is compatible with that of case (2),
+  since on $\xi-\eta=\epsilon$, $s_t = 1$.
+
+  The assertion follows.
+\end{proof}
+
+As the last assertion is proved, so is the theorem.
+
+\begin{rmk}
+  More generally suppose that there are $k$ non-degenerate critical points
+  $p_1$, .., $p_k$ with indices $\lambda_1$, .., $\lambda_k$ in
+  $f^{-1}(c)$. Then a similar proof shows that $M^{c+\epsilon}$ has the homotopy
+  type of $M^{c-\epsilon}\cup e^{\lambda_1}\cup .. \cup e^{\lambda_k}$.
+\end{rmk}
+
+\begin{lem}[Whitehead]
+  Let $\phi_0$ and $\phi_1$ be homotopic maps from the sphere $\dot{e}^\lambda$
+  to $X$. Then the identity map of $X$ extends to a homotopy equivalence
+  \begin{equation}
+    k: X \cup_{\phi_0} e^\lambda \to X \cup_{\phi_1} e^\lambda
+  \end{equation}
+\end{lem}
+
 
 
 \section{Manifolds in Euclidean Space: The Existence of Non-degenerate
@@ -123,7 +593,7 @@ assume $M \subset \RR^n$. For each $p \in \RR^n$, define a smooth function $L_p
 
 We want to find a $p \in \RR^n$ such that $L_p$ has no degenerate critical
 points in $M$. Denote $L_p$ as $f$. Let $q \in M$ and let $(u^1, .., u^k)
-\mapsto (x^1(u), .., x^n(u))$ be a local coordinate centered at $q$. Then $q$ is
+\mapsto (x^1(u), .., x^n(u))$ be a local coordinate system centered at $q$. Then $q$ is
 a critical point if $\frac{\partial f}{\partial u^i}(q) = 0$ for all $i = 1, ..,
 k.$; that is,
 \begin{equation}
@@ -182,8 +652,15 @@ study the focal points of $(M, q)$ along the line $\vect{l} =
 fundamental form of a manifold in $\RR^n$:
 
 \begin{defn}
-  Let $\vect{q} \in M$ and let $\vect{v} \in (T_qM)^\perp$. The second
-  fundamental form in the direction of $\vect{v}$ is defined as the matrix
+  Let $\vect{q} \in M$ and let $\vect{v} \in (T_qM)^\perp$, $|\vect{v}| =
+  1$. When $g_{ij} = \delta_{ij}$, the second fundamental form\footnote{The more
+    general definition is $-(\nabla \tilde{v})^T$, which is a linear
+    transformation on $T_qM$. If $(u^1, .., u^k)$ is a normal coordinate system,
+    the matrix of the second fundamental from is given by $(-\nabla^T
+    \tilde{v})_{ij} = -\frac{\partial \tilde{v}}{\partial u^j} \cdot
+    \frac{\partial x}{\partial u^i} = v \cdot \frac{\partial^2 x}{\partial
+      u^i \partial u^j}$.} in the direction of $\vect{v}$ is defined as the
+  matrix
 
   \begin{equation}
     \left(
@@ -206,16 +683,16 @@ Now comes the key lemma in this section:
 \end{lem}
 
 \begin{proof}
-  First we are going to find a local coordinate of $N$ centered at $(q, v)$. Let
-  $\vect{w}_1(u^1, .., u^k)$, .., $\vect{w}_{n-k}(u^1, .., u^k)$ be orthonormal
-  vector fields in $N$. Then we have a local coordinate of $N$ at $(q, v)$
-  defined by
+  First we are going to find a local coordinate system of $N$ centered at $(q,
+  v)$. Let $\vect{w}_1(u^1, .., u^k)$, .., $\vect{w}_{n-k}(u^1, .., u^k)$ be
+  orthonormal vector fields in $N$. Then we have a local coordinate system of
+  $N$ at $(q, v)$ defined by
   \begin{equation}
     (u^1, .., u^k, t^1, .., t^{n-k}) \mapsto (\vect{x}(u),
     \sum_{\alpha=1}^{n-k}t^{\alpha} \vect{w}_{\alpha}(u^1, .., u^k)) \in N
   \end{equation}
-  Write $E: N \to \RR$ in the coordinate as $E(u, t) = \vect{e}(u, t) \in \RR^n$
-  and get
+  Write $E: N \to \RR$ in the coordinates as $E(u, t) = \vect{e}(u, t) \in
+  \RR^n$ and get
   \begin{equation}
     \vect{e}(u, t) = \vect{x}(u) + \sum_{\alpha=1}^{n-k}t^{\alpha} \vect{w}_{\alpha}(u^1, .., u^k))
   \end{equation}
@@ -303,7 +780,7 @@ Now comes the key lemma in this section:
     \left( g_{ij} - \sum_{\alpha}t^{\alpha}\vect{w}_{\alpha} \cdot \vect{l}_{ij} \right)
   \end{equation}
 
-  We choose the Riemman normal coordinate at $q$, so that $g_{ij}(q) =
+  We choose the Riemman normal coordinates at $q$, so that $g_{ij}(q) =
   \delta_{ij}$. Now, $\sum_{\alpha}t^{\alpha}\vect{w}_{\alpha} = t\vect{v}$. The
   matrix
   \begin{equation}
@@ -398,17 +875,18 @@ $L_p$ at a critical point:
     \left( \frac{\partial^2 L_p}{\partial u^i \partial
         u^j}(q) \right) = 2(g_{ij}-t\vect{v} \cdot \vect{l}_{ij})
   \end{equation}
-  equals the number of negative eigenvalues counting with multiplicity. Recall
-  that we can choose the normal coordinate such that $(g_{ij})$ is
+  equals the number of negative eigenvalues counted with multiplicity. Recall
+  that we can choose the normal coordinates such that $(g_{ij})$ is
   identity. Then$\left( \frac{\partial^2 L_p}{\partial u^i \partial u^j}(q)
   \right)$ has a negative eigenvalue if and only if $1-K_it < 0$ for some
   principal curvatures $K_i$. Thus $K_i > \frac{1}{t}$. Recall that the focal
-    points that lies on the line from $q$ through $p$ are of the form
-    $\vect{q}+K_i^{-1}\vect{v}$. Therefore the correspondece established. 
-    
+  points that lies on the line from $q$ through $p$ are of the form
+  $\vect{q}+K_i^{-1}\vect{v}$. Therefore the correspondence established.
+  
 \end{proof}
 
 \section{The Lefschetz Theorem on Hyperplane Sections}
 
+As an application of the previous results, 
 
 \end{document}
