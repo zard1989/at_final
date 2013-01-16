@@ -11,7 +11,7 @@
 \usepackage{amsfonts}              % for blackboard bold, etc
 \usepackage{amsthm}                % better theorem environments
 \usepackage{amssymb}
-
+\usepackage[all]{xy}
 
 % various theorems, numbered by section
 
@@ -48,14 +48,14 @@ r01221031}
 \maketitle
 
 \begin{abstract}
-  This report covers roughly the part I of J. Milnor's book(citation). The main
-  result is the theorem of Morse: every smooth manifold has the same homotopy
-  type of a CW-complex. We prove this theorem by developing the concept of
-  non-degenerate smooth functions, their index at critical points and the
-  correspondence between the index and the dimension of attaching cells. After
-  the main theorem, the existence of non-degenerate smooth functions on
-  manifolds is established, and as an application, an alternating proof of the
-  Lefschetz hyperplane theorem is given.
+  This report covers roughly the part I of J. Milnor's book\cite{Mil}. The main
+  result is the theorem: every smooth manifoldhas the same homotopy type of a
+  CW-complex. We prove this theorem by developing the concept of non-degenerate
+  smooth functions, their index at critical points and the correspondence
+  between the index and the dimension of attaching cells. After the main
+  theorem, the existence of non-degenerate smooth functions on manifolds is
+  established, and as an application, a proof of the Lefschetz hyperplane
+  theorem is given.
 \end{abstract}
 
 
@@ -205,7 +205,7 @@ completely described by this index. Before proving this, there is a small lemma:
   
   We may assume $h_{ij}$ is symmetric, since we can write $\bar{h}_{ij} =
   \frac{1}{2}(h_{ij}+h_{ji})$ and get $f = \sum_{i,j}
-  x^ix^j\bar{h}_{ij}$. Moreover, $\bar{h}_{i,j}(0) = \frac{1}{2}\frac{\partial^2
+  x^ix^j\bar{h}_{ij}$. Moreover, $\bar{h}_{ij}(0) = \frac{1}{2}\frac{\partial^2
     f}{\partial x^i \partial x^j}(0)$, so it is non-singular.
 
   By induction, we proceed to find the local coordinate system to express $f$ in
@@ -305,6 +305,7 @@ where $a < b$. The first case is simpler, namely there is no critical point in
 $f^{-1}[a,b]$:
 
 \begin{thm}
+  \label{3.1}
   Suppose $f^{-1}[a,b]$ is compact and contains no critical points of $f$. Then
   $M^a$ is diffeomorphic to $M^b$. Furthermore, $M^a$ is a deformation retract
   of $M^b$, so that the inclusion map $\iota : M^a \to M^b$ is a homotopy
@@ -343,15 +344,16 @@ $f^{-1}[a,b]$:
   For fixed $q \in M$ consider the function $t \mapsto f(\phi_t(q))$. Then If
   $\phi_t(q) \in f^{-1}[a,b]$, then
   \begin{equation}
-    \frac{d f(\phi_t(q))}{dt} = X_{\phi_t q}(f) = +1
+    \frac{d f(\phi_t(q))}{dt} = X_{\phi_t(q)}(f) = 
+    \langle \rho(grad \:  f), grad \: f \rangle \le 1.
   \end{equation}
-  Hence the correspondence $t \mapsto f(\phi_t(q))$ is linear as long as
-  $f(\phi_t(q)) \in [a,b]$. It follows that $f(\phi_{t}(q)) = t + f(q)$ in a
-  small neighborhood of $0 \in \RR$, where $q \in f^{-1}[a,b]$.
+  Hence the inequality $f(\phi_t(q)) \le t + f(q)$ holds for all $t \in \RR$. It
 
-  Consider the diffeomorphism $\phi_{b-a} : M \to M$. By above it's clear
-  that $\phi_{b-a}$ maps $M^a$ diffeomorphically onto $M^b$. This prove the
-  first part of the theorem.
+  Consider the diffeomorphism $\phi_{b-a} : M \to M$. If $p \in M^b$, let $q =
+  \phi_{a-b}(p)$. Then $\phi_{b-a}(q) = p$ and $f(q) = f(\phi_{a-b}(p)) \le
+  a-b+f(p) \le a$. So $\phi_{b-a}$ maps $M^a$ onto $M^b$. It follows that
+  $\phi_{b-a}$ maps $M^a$ diffeomorphically onto $M^b$. This prove the first
+  part of the theorem.
 
   Now we construct a 1-parameter family of maps by
   \begin{equation}
@@ -371,6 +373,7 @@ part of the Morse theory. It can be shown that $M^b$ is just $M^a$ with a number
 of cells attached.
 
 \begin{thm}
+  \label{3.2}
   Let $f: M \to \RR$ be a smooth function and let $p$ be a non-degenerate
   critical point with index $\lambda$. Setting $f(p) = c$, suppose that $p$ is
   the only critical point in $f^{-1}[c-\epsilon, c+\epsilon]$, for some
@@ -423,7 +426,7 @@ Next we construct a new smooth function $F : M \to \RR$ as follows. Let $\mu
 \end{equation}
 
 For example, we can define $\mu$ as follows. Let $\mu = \epsilon'
-\frac{\int_x^{2\epsilon} \alpha(t)\alpha(2\epsilon-t)}dt{\int_0^{2\epsilon}
+\frac{\int_x^{2\epsilon} \alpha(t)\alpha(2\epsilon-t)dt}{\int_0^{2\epsilon}
   \alpha(t)\alpha(2\epsilon-t)}dt$, where $2\epsilon > \epsilon' > \epsilon$ and
 \begin{equation}
   \alpha(x) =
@@ -445,7 +448,8 @@ It is convenient to write $\xi = (u^1)^2+..+(u^{\lambda})^2$ and $\eta =
 (u^{\lambda+1})^2+..+(u^{n})^2$.
 
 \begin{asser}
-  The region $F^{-1}(-\infty, c+\epsilon]$ coincides with the region $M^{c+\epsilon}$.
+  The region $F^{-1}(-\infty, c+\epsilon]$ coincides with the region
+  $M^{c+\epsilon}$.
 \end{asser}
 
 \begin{proof}
@@ -467,7 +471,7 @@ It is convenient to write $\xi = (u^1)^2+..+(u^{\lambda})^2$ and $\eta =
     \begin{aligned}
       F &= c - \xi + \eta - \mu(\xi+2\eta) \\
       \frac{\partial F}{\partial \xi} &= -1 - \mu'(\xi+2\eta) < 0 \\
-      \frac{\partial F}{\partial \eta} &= 1 - 2\mu'(\xi+2\eta) ge 1 \\
+      \frac{\partial F}{\partial \eta} &= 1 - 2\mu'(\xi+2\eta) \ge 1 \\
       dF &= \frac{\partial F}{\partial \xi}d\xi+\frac{\partial F}{\partial
         \eta}d\eta
     \end{aligned}
@@ -483,7 +487,7 @@ c+\epsilon]$, $f(q) \le c+ \epsilon$. Therefore $q \in f^{-1}(-\infty,
 c+\epsilon]$. This proves that $F^{-1}[c-\epsilon, c+\epsilon] \subset
 f^{-1}[c-\epsilon, c+\epsilon]$. Being a closed subset of a compact set in a
 locally compact Hausdorff space, $F^{-1}[c-\epsilon, c+\epsilon]$ is compact.
-Note that $F(p) = c- \mu(0) \le c-\epsilon$. $p \notin F^{-1}[c-\epsilon,
+Note that $F(p) = c- \mu(0) < c-\epsilon$. $p \notin F^{-1}[c-\epsilon,
 c+\epsilon]$. Together with the preceding theorem we get
 
 \begin{asser}
@@ -525,17 +529,17 @@ c-\epsilon]$.
 
   We check that the homotopy lies entirely in $H =
   \{\epsilon-\mu(\xi+2\eta) \le \xi-\eta \le \epsilon \}$. It does,
-  indeed, since $\epsilon \ge \xi > \xi-t^2\eta > \xi-\eta \ge
-  \epsilon-\mu(\xi+2\eta) \ge \epsilon-\mu(\xi+2t\eta)$.
+  indeed, since $\epsilon \ge \xi \ge \xi-t^2\eta \ge \xi-\eta \ge
+  \epsilon-\mu(\xi+2\eta) \ge \epsilon-\mu(\xi+2t^2\eta)$.
 
   In region (2), we project this part into $M^{c-\epsilon}$, in the
   $\eta$-direction as the in case (1). Let the following denote the projection:
   \begin{equation}
     (u^1, .., u^n) \mapsto
-    (u^1, .., u^\lambda, cu^{\lambda+1}, .., cu^n) \in M^{c-\epsilon}
+    (u^1, .., u^\lambda, ku^{\lambda+1}, .., ku^n) \in M^{c-\epsilon}
   \end{equation}
   
-  Then it's easy to calculate $c =
+  Then it's easy to calculate $k =
   (\frac{\xi-\epsilon}{\eta})^{\frac{1}{2}}$. Then the homotopy is simply the
   line along the projection:
   \begin{equation}
@@ -544,13 +548,27 @@ c-\epsilon]$.
   \end{equation}
   where
   \begin{equation}
-    s_t = t + (1-t)c.
+    s_t = t + (1-t)k.
   \end{equation}
 
-  Again we check that the homotopy lies entirely in $H$. This is true, since
-  $s_t \in [0,1]$. More precisely, $\xi-s_t^2\eta \ge \xi-\eta \ge
-  \epsilon-\mu$.
+  Again we check that the homotopy lies entirely in $H$. We first note that $s_t
+  \in [0,1]$. Then $\xi-s_t^2\eta \ge \xi-\eta \ge \epsilon-\mu$. Also,
 
+  \begin{equation}
+    \begin{aligned}
+      \xi-s_t^2\eta &= \xi -
+      (t^2+2t(1-t)(\frac{\xi-\epsilon}{\eta})^{1/2}+(1-t)^2\frac{\xi-\epsilon}{\eta})\eta
+      \\
+      &=
+      \xi-t^2\eta-2(t-t^2)\sqrt{\eta(\xi-\epsilon)}-(1-t)^2\epsilon+(1-t)^2\epsilon
+      \\
+      &\le
+      \xi-t^2(\epsilon-\xi)-(2t-2t^2)(\xi-\epsilon)-(1-t)^2\xi+(1-t)^2\epsilon
+      \\
+      &= \epsilon,
+    \end{aligned}
+  \end{equation}
+  where we use the condition $\xi-\eta \le \epsilon$.
 
   Since $s_t$ is continuous and it is compatible with the case (1) when $\xi =
   \epsilon$, $r_t$ is well-defined and continuous on the union.
@@ -565,13 +583,30 @@ c-\epsilon]$.
 As the last assertion is proved, so is the theorem.
 
 \begin{rmk}
+  \label{3.3}
   More generally suppose that there are $k$ non-degenerate critical points
   $p_1$, .., $p_k$ with indices $\lambda_1$, .., $\lambda_k$ in
   $f^{-1}(c)$. Then a similar proof shows that $M^{c+\epsilon}$ has the homotopy
   type of $M^{c-\epsilon}\cup e^{\lambda_1}\cup .. \cup e^{\lambda_k}$.
 \end{rmk}
 
+\begin{thm}
+  \label{main}
+  If f is a differentiable function on a manifold $M$ with no degenerate
+  critical points, and if each $M^a$ is compact, then $M$ has the homotopy type
+  of a CW-complex with one cell of dimension $\lambda$ for each critical point
+  of index $\lambda$.
+\end{thm}
+
+The proof will be based on two lemmas concerning a topological space $X$ with a
+cell attached. The first lemma says that if two attaching methods are homotopic
+to each other, then the two resulting spaces are homotopy equivalent. The second
+lemma shows that if the base space is changed by a map preserving its homotopy
+type, then then the two attaching spaces are homotopic equivalent in a natural
+way.
+
 \begin{lem}[Whitehead]
+  \label{whitehead}
   Let $\phi_0$ and $\phi_1$ be homotopic maps from the sphere $\dot{e}^\lambda$
   to $X$. Then the identity map of $X$ extends to a homotopy equivalence
   \begin{equation}
@@ -579,6 +614,217 @@ As the last assertion is proved, so is the theorem.
   \end{equation}
 \end{lem}
 
+\begin{proof}
+  Let $\phi_t$ be the homotopy between $\phi_0$ and $\phi_1$. Let $u$ denote a
+  point on $\dot{e}^\lambda$. We define $k$ by the following formulas:
+  \begin{equation}
+    \begin{array}{lcl}
+      k(x) = x, & x \in X, \\
+      k(tu) = 2tu & t \in [0,\frac{1}{2}], \\
+      k(tu) = \phi_{2-2t}(u) & t \in [\frac{1}{2},1].
+    \end{array}
+  \end{equation}
+
+  Notice that $k(\frac{1}{2}u) = u = \phi_1(u)$. 
+
+  Define $l : X \cup_{\phi_1} e^\lambda \to X \cup_{\phi_0} e^\lambda$ in a
+  similar way as $k$:
+
+  \begin{equation}
+    \begin{array}{lcl}
+      k(x) = x, & x \in X, \\
+      k(tu) = 2tu & t \in [0,\frac{1}{2}], \\
+      k(tu) = \phi_{2t-1}(u) & t \in [\frac{1}{2},1].
+    \end{array}
+  \end{equation}
+
+  Then $lk$ is defined as the following formulas
+
+  \begin{equation}
+    \begin{array}{lcl}
+      lk(x) = x, & x \in X, \\
+      k(tu) = 4tu & t \in [0,\frac{1}{4}], \\
+      k(tu) = \phi_{4t-1}(u) & t \in [\frac{1}{4},\frac{1}{2}], \\
+      k(tu) = \phi_{2-2t}(u) & t \in [\frac{1}{1},1].
+    \end{array}
+  \end{equation}
+
+  Hence there is a homotopy between $lk$ and identity
+
+  \begin{equation}
+    \begin{array}{lcl}
+      H(s, x) = x, & s \in [0,1], x \in X,\\
+      H(s, tu) = (4-3s)tu & t \in [0,\frac{1}{4-3s}], \\
+      H(s, tu) = \phi_{4t-1}(u) & t \in [\frac{1}{4-3s},\frac{2-s}{4-3s}], \\
+      H(s, tu) = \phi_{\frac{4-3s}{4}(2-2t)}(u) & t \in [\frac{2-s}{4-3s},1].
+    \end{array}
+  \end{equation}
+
+  $H$ is continuous on a finite number of closed sets of $[0,1]\times[0,1]$ and
+  well-defined, so $H$ is continuous.
+
+  In a similar fashion, we can construct a homotopy from $kl$ to identity
+
+  \begin{equation}
+    \begin{array}{lcl}
+      \bar{H}(s, x) = x, & s \in [0,1], x \in X,\\
+      \bar{H}(s, tu) = (4-3s)tu & t \in [0,\frac{1}{4-3s}], \\
+      \bar{H}(s, tu) = \phi_{2-(4-3s)t}(u) &
+      t \in [\frac{1}{4-3s},\frac{2-s}{4-3s}], \\
+      \bar{H}(s, tu) = \phi_{\frac{(4-3s)t}{2}+\frac{3}{2}s-1}(u) &
+      t \in [\frac{2-s}{4-3s},1].
+    \end{array}
+  \end{equation}
+
+
+\end{proof}
+
+\begin{lem}
+  \label{3.7}
+  Let $\phi : \dot{e}^\lambda \to X$ be an attaching map. Any homotopy
+  equivalence $f: X \to Y$ extends to a homotopy equivalence
+  \begin{equation}
+    F: X \cup_\phi e^\lambda \to Y \cup_{f\phi} e^\lambda
+  \end{equation}
+\end{lem}
+
+\begin{proof}
+  Define $F|_X = f$, $F|_{e^\lambda} = identity$. Let $g$ be the homotopy
+  inverse of $f$. Define $G: Y \cup_{f\phi} e^\lambda \to X \cup_{gf\phi}
+  e^\lambda$ by $G|_Y = g$, $G|_{e^\lambda} = identity$. Since $gf\phi$ is
+  homotopic to $\phi$, by \ref{whitehead} there is a homotopy equivalence
+  $G: X \cup_{gf\phi} e^\lambda \to X \cup_{\phi} e^\lambda$. We want to show
+  that $kG$ is a homotopic inverse of $F$. We first write down the composition
+  $kGF$ in the following formulas
+
+  \begin{equation}
+    \begin{array}{lcl}
+      kGF(x) = x, & x \in X, \\
+      kGF(tu) = 2tu & t \in [0,\frac{1}{2}], \\
+      kGF(tu) = h_{2-2t}(u) & t \in [\frac{1}{2},1]
+    \end{array}
+  \end{equation}
+  where $h_t$ is a homotopy between $gf$ and identity. $kGF$ is homotopic to
+  identity by the following formulas
+
+  \begin{equation}
+    \begin{array}{lcl}
+      H(s, x) = h_s(x), & s \in [0,1], x \in X,\\
+      H(s, tu) = (2-s)tu & t \in [0,\frac{1}{2}], \\
+      H(s, tu) = h_{2-(2-s)t}(tu) & t \in [\frac{1}{2},1]
+    \end{array}
+  \end{equation}
+  
+  Thus $F$ has a left inverse. Note that $g$ and the induced $G$ also satisfy
+  the condition of the lemma. So $G$ also has a left inverse.
+
+  It is elementary that if $F$ has both a left inverse $L$ and a right inverse
+  $R$, then $F$ is a homotopy equivalence and both $L$ and $R$ are two sided
+  inverses.
+
+  Now we have $k(GF) \sim id$. Since $k$ is a homotopy equivalence, $GFk \sim
+  id$. Thus $G$ has a right inverse. Then $G$ is also a homotopy equivalence and
+  $FkG \sim id$. Thus $F$ also has a right inverse. This proves that $F$ is a
+  homotopy equivalence.
+\end{proof}
+
+We now go back to the proof of theorem \ref{main}:
+
+\begin{proof}
+  Let $c_1 < c_2 < c_3 < ..$ be the critical values of $f: M \to \RR$. The
+  sequence ${c_i}$ has no cluster points, for each $M^a$ is compact \footnote{If
+    $c$ is a cluster point of ${c_i}$,then there exists a sequence ${p_j}$ in M
+    such that $f(p_j) = c_{i_j}$ and $\lim_{j \to \infty} p_j = p$ If p is not a
+    critical point, then there is a neighborhood $U$ of $p$ such that each point
+    of $U$ is not a critical point. But this is a contradiction, since $p$ is
+    the limit of the sequence ${p_j}$.}. We first prove by induction that each
+  level set $M^a$ has the homotopy type of a CW-complex. If $a < c_1$, then $M^a
+  = \emptyset$. Suppose $c_{i-1} < a < c_{i} =: c$. By theorems \ref{3.1},
+  \ref{3.2} and \ref{3.3}, $M^{c+\epsilon} = M^a \cup_{\phi_1} e^{\lambda_1}
+  \cup .. \cup_{\phi_{j(c)}} e^{\lambda_{j(c)}}$, for sufficiently small
+  $\epsilon$. By induction hypothesis, there is a homotopy equivalence $h : \to
+  K$.By lemma \ref{3.7}, $h$ induces a homotopy equivalence between
+  $M^{c+\epsilon} = M^a \cup_{\phi_1} e^{\lambda_1} \cup .. \cup_{\phi_{j(c)}}
+  e^{\lambda_{j(c)}}$ and $K \cup_{h\circ\phi_1} e^{\lambda_1} \cup
+  .. \cup_{\circ\phi_{j(c)}} e^{\lambda_{j(c)}}$
+
+  Each $h \circ \phi_j$ is homotopic by cellular approximation to
+  \begin{equation}
+    \psi_j: \dot{e}^{\lambda_j} \to K^{\lambda_j-1}.
+  \end{equation}
+
+  By lemma \ref{whitehead}, replacing the attaching map does not
+  change the homotopy type. Thus we have shown that $M^{c+\epsilon}$
+  has the homotopy type of a CW-complex.
+
+  If M is compact, then $M = M^a$ for some $a \in \RR$ and the proof is done. If
+  M is not compact, but all critical points lie in $M^a$, a proof similar to
+  \ref{3.1} shows that $M^a$ is a deformation retract of $M$.
+
+  If there are infinitely many critical points, then we can construct an
+  infinite sequence of homotopy equivalences
+  \begin{equation*}
+    \xymatrix@C+0em@R+0em{
+      M_{a_1} \ar[d]_{g_1} \ar@{^(->}[r] &
+      M_{a_2} \ar[d]_{g_2} \ar@{^(->}[r]&\cdots \\
+      K_1 \ar@{^(->}[r] & K_2 \ar@{^(->}[r] &\cdots
+    }
+  \end{equation*}
+  each extending the previous one. Let $K = \cup_{i=1}^{\infty}K_i$ have the
+  direct limit topology. We show that $K$ is a CW-complex. Let $C$ be a closed
+  set in $K$. Then by definition, $C\cap K_i$ is closed in $K_i$ for all
+  $i$. This means that $C\cap e_{ij}$ is closed in $e_{ij}$ for all $e_{ij} \in
+  K_i$ for all $i$. Thus $C \cap e$ is closed for all cell in $K$. This proves
+  that $K$ has the weak topology.
+
+  Now let $C$ be a compact set in $K$. Let $I=\{ p_i | p_i \in C \cap
+  e_i\}$, where $e_i$ ranges over all cells in $K$. Then $I$ is
+  closed, since the intersection of $I$ and each cell is a point. $I$
+  is descrete, since each $p \in I$ lies in a cell and each cell is
+  closure-finite. This proves that $K$ has the closure-finite
+  property.
+
+  Let $g: M \to K$ be the limit map. We need Whitehead's theorem to conclude
+  that $g$ is a homotopy equivalence:
+
+  \begin{thm}
+    If $M$ and $K$ are both dominated by CW-complexes, then any map $M \to K$
+    which induces isomorphisms of homotopy groups is a homotopy equivalence.
+  \end{thm}
+
+  \begin{defn}\cite{Hat}
+    A space $Y$ is dominated by a space $X$ if there are maps
+    \begin{equation}
+      \xymatrix{
+        Y \ar[r]^i & X \ar[r]^r & Y
+      }
+    \end{equation}
+    such that $ri \sim 1_Y$.
+  \end{defn}
+
+  $M$ can be dominated by a CW-complex in the following way. Embed $M$ into
+  $\RR^n$. Let $N$ be a tubular neighborhood of $M$. Triangulate $\RR^n$ so that
+  the simplex intersecting $M$ lies entirely in $N$. Collecting all the
+  simplexes and their faces, we get a CW-complex $K$. $M \subset W$. The
+  retraction of the tubular neighborhood into $M$ restricting on $W$ is a
+  retraction on $W$ into $M$. This shows that $M$ is dominated by a CW-complex.
+
+  It remains to show that $g_*$ is an isomorphism of each $\pi_n(M)$ and
+  $\pi_n(K)$. We prove the onto-ness first. Let $f_i$ denote the homotopy
+  inverse of $g_i$. Let $[\phi] \in \pi_n(K)$. Since $\phi(S^n)$ is compact,
+  $\phi(S^n)$ lies in some $K_i$. Since $g_i\circ f_i \circ \phi$ is homotopic
+  to $\phi$ in $K_i \subset K$, $g_*[f_i\circ\phi] = [\phi]$. Next we prove that
+  $g_*$ is one-to-one. Suppose there exist $\phi_0, \phi_1 : S^n \to K$ such
+  that $g\circ\phi_0 \sim g\circ\phi_1$ in $K$. Denote the homotopy as
+  $H$. Since $H$ is continuous and $[0,1]\times S^n$ is compact, the homotopy
+  lies in a compact set of $K$, thus in $K_i$ for some $i$. Therefore $f_i\circ
+  g_i\circ\phi_0 \sim f_i\circ g_i\phi_1$ in $M^{a_i}$. Hence $f_i\circ
+  \phi_0 \sim \phi_1$ in $M$. 
+
+
+  The theorem follows.
+
+\end{proof}
 
 
 \section{Manifolds in Euclidean Space: The Existence of Non-degenerate
@@ -865,6 +1111,8 @@ The preceding theory can also be used to describe the index of the function
 $L_p$ at a critical point:
 
 \begin{lem}[Index theorem for $L_p$]
+  \label{index}
+  \label{index_of_Lp}
   The index of $L_p$ at a non-degenerate critical point $q \in M$ is equal to
   the number of focal points of (M, q) which lie on the segment from $q$ to $p$;
   each focal point being counted with its multiplicity.
@@ -945,12 +1193,147 @@ Now consider a complex manifold $M$ which is bianalytically embedded as a subset
 of $\CC^n$. Let $q$ be a point of $M$.
 
 \begin{asser}
-  The focal points of $(M, q)$ along any normal lines $\mathbb{l}$ ocur in pairs
+  The focal points of $(M, q)$ along any normal lines occur in pairs
   which are situated symmetrically about $q$.
 \end{asser}
 
 \begin{proof}
-  
+  Let $(z^1, .., z^k)$ be coordinates centered at $q$ such that $g_{ij}(q) =
+  \delta_{ij}$\footnote{
+    Let $E_1, .., E_k$ be an orthornormal basis in $T_qM$. Let $(u_1, .., u_k)$
+    be a local coordinates at $q$. Then $E_i = a_{ji}\frac{\partial w}{\partial
+      u^j}(q)$, where the matrix $(a_{ij})$ is non singular. Define $(v_1, ..,
+    v_k)$ by $u_i = a_{ij}v^j$. Then $\frac{\partial w}{\partial v_k} =
+    \frac{\partial w}{\partial u^j}\frac{\partial u^j}{\partial v^i} = E_i$.}
+  . The embedding determines analytic coordinate functions
+  $w_\alpha(z^1, .., z^k)$, $\alpha = 1, .., n$.  In $\CC^n$, we consider the
+  Hermitian inner product $ v \cdot w = \sum_i v_i\bar{w}_i$.
+
+  Let $v$ be a unit vector in $\CC^n$, orthogonal to $M$ at $q$. We consider the
+  quadratic forms
+
+  \begin{equation}
+    Q(z^1, .., z^k) = 
+    \sum_{i,j} v \cdot \frac{\partial^2 w}{\partial z^i \partial z^j}z^iz^j
+  \end{equation}
+  and
+
+  \begin{equation}
+    \label{QQ}
+    Q'(x^1, .., x^k, y^1, .., y^k) = Re\{Q(z^1, .., z^k)\}
+  \end{equation}
+  where $z^j = x^j+iy^j$.
+
+  We have
+
+  \begin{equation}
+    \begin{aligned}
+      \frac{\partial^2 w}{\partial z^i \partial z^j} &=
+      \frac{1}{4}\left(
+        \frac{\partial}{\partial x^i}-i\frac{\partial}{\partial
+          y^i}\right)\left(\frac{\partial}{\partial
+          x^j}-i\frac{\partial}{\partial y^j}
+      \right)w \\
+      &= \frac{\partial^2 w}{\partial x^i \partial x^j} =
+      -\frac{\partial^2 w}{\partial y^i \partial y^j} = 
+      -i\frac{\partial^2 w}{\partial x^i \partial y^j} = 
+      -i\frac{\partial^2 w}{\partial y^i \partial x^j}
+    \end{aligned}
+  \end{equation}
+  Substituting the above relations into \eqref{QQ}, we find that $Q'$ is exactly
+  the second fundamental form of $M$ at $q$ in $\RR^{2n}$.  Recall that the
+  focal points are exactly $q+K_i^{-1}v$, where $K_i$ are the principal
+  curvatures. From the previous assertion, we see that $-K_i$ is also a
+  principal curvature. Thus the focal points lie symmetrically about $q$ on the
+  line passing through $q$ in the $v$ direction.
 \end{proof}
+
+Now we go back to the proof of the theorem. Choose $p$ in $\CC^n$ such that
+$L_p$ is non-degenerate. Since $M$ is a closed subset of $\CC^n$, each $M^a =
+L_p^{-1}[0, a]$ is compact. For each $q$ there are at most $2k$ focal points
+that lie on line $\stackrel{\leftrightarrow}{pq}$. Since they are distributed
+about $q$, there are at most $k$ focal points that lie on the line segment from
+$q$ to $p$. By lemma \ref{index}, the index of $L_p$ at $q$ is at most $k$. By
+theorem \ref{main}, $M$ has the homotopy type of a CW-complex of dimension at
+most $k$. This completes the proof.
+
+\begin{cor}
+  If $M \subset \CC^n$ is a non-singular affine algebraic variety in $\CC^n$
+  with real dimension $2k$, then
+  \begin{equation}
+    H_i(M; \ZZ) = 0
+  \end{equation}
+  for $i>k$.
+\end{cor}
+
+\begin{proof}
+  $M$ has the homotopy type of a CW-complex of dimension $\le k$. Since $M$ has
+  no cells of dimension $ > k$, the $i$th cellular chain complex is $0$.
+\end{proof}
+
+\begin{cor}[Lefschetz]
+  Let $V$ be an algebraic variety of complex dimension $k$ which lies in the
+  complex projective space $\CC P_n$. Let $P$ be a hyperplane in $\CC P_n$ which
+  contains the singular points (if any) of $V$. Then the inclusion map
+  \begin{equation}
+    V\cup P \to V
+  \end{equation}
+  induces isomorphisms of homology groups in dimensions less than
+  $k-1$. Furthermore, the induced homomorphism
+  \begin{equation}
+    H_k(V\cup P;\ZZ) \to H_{k-1}(V;\ZZ)
+  \end{equation}
+  is onto.
+\end{cor}
+
+\begin{proof}
+  The short exact sequence
+  \begin{equation}
+    \xymatrix{
+      0 \ar[r] &
+      S_{\cdot}(V\cap P;\ZZ) \ar[r] &
+      S_{\cdot}(V;\ZZ) \ar[r] &
+      S_{\cdot}(V, V\cap P;\ZZ) \ar[r] & 
+      0
+    }
+  \end{equation}
+  induces the long exact sequence
+  \begin{equation}
+    \xymatrix{
+      \cdots \ar[r] &
+      H_{r+1}(V, V\cap P;\ZZ) \ar[r] &
+      H_{r}(V\cap P;\ZZ) \ar[r] &
+      H_{r}(V,;\ZZ) \ar[r] & 
+      H_{r}(V, V\cap P;\ZZ) \ar[r] &
+      \cdots
+    }
+  \end{equation}
+   
+  Therefore it suffices to show that $H_r(V, V\cap P; \ZZ) = 0$ for $r \le
+  k-1$. The Lefschetz duality theorem asserts that
+  \begin{equation}
+    H_r(V,V\cap P;\ZZ) \cong H^{2k-r}(V-(V\cap P);\ZZ).
+  \end{equation}
+
+  Since $V-(V\cap P)$ is a complex analytic manifold embedded as a closed set in
+  $\CC^n$, it has the homotopy type of a CW-complex of dimension $\le
+  k$. Therefore, by the previous corollary, $H_{2k-r}(V-(V\cap P);\ZZ) = 0$ for
+  $r \le k-1$.
+\end{proof}
+
+\begin{thebibliography}{9}                                                                                                
+%\bibitem{Car} \textsc{Carmo, M. do},\ \textit{Riemannian Geometry}, Birkh\"auser, 1992.
+
+\bibitem{Mil} \textsc{Milnor, J.},\ \textit{Morse Theory}, Princeton University
+  Press, 1969.
+
+\bibitem{Hat} \textsc{Hatcher, A.},\ \textit{Algebraic Topology}, Cambridge
+  University Press, 2002.
+
+\bibitem{Spa} \textsc{Spanier, E.},\ \textit{Algebraic Topology}, McGraw-Hill,
+  1966.
+
+\end{thebibliography}
+
 
 \end{document}
